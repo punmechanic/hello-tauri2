@@ -4,8 +4,12 @@
 )]
 mod podman_api;
 
+use podman_api::Client;
+
 fn main() {
-  podman_api::hello_world();
+  let client = Client::new();
+  let containers = client.list_containers().expect("oops");
+  println!("{:?}", containers);
 
   tauri::Builder::default()
     .run(tauri::generate_context!())
